@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光源宇宙 · 小蝴蝶｜西塔疗愈 · 塔罗咨询</title>
+<style>
+  :root{
+    --purple:#6a4c93;
+    --purple-light:#8b6bb5;
+    --purple-soft:#b9a3d8;
+    --mint:#c9f7e5;
+    --lavender:#e6d9ff;
+
+    --purple-deep:#4a3570;
+    --purple-faint:rgba(106,76,147,0.06);
+    --card-bg:rgba(255,255,255,0.62);
+    --card-border:rgba(255,255,255,0.72);
+    --shadow-soft:0 8px 32px rgba(106,76,147,0.08);
+    --shadow-hover:0 16px 48px rgba(106,76,147,0.14);
+
+    --text-primary:#6a4c93;
+    --text-secondary:#8b6bb5;
+    --text-tertiary:#b9a3d8;
+
+    --font-serif:"Noto Serif SC","Songti SC","STSong","SimSun",Georgia,"Times New Roman",serif;
+    --font-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",sans-serif;
+
+    --space-xl:96px;
+    --space-2xl:140px;
+
+    --radius-sm:12px;
+    --radius-md:20px;
+    --radius-lg:28px;
+    --radius-xl:36px;
+
+    --ease-out:cubic-bezier(0.16,1,0.3,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:16px}
+
+  body{
+    font-family:var(--font-sans);
+    color:var(--text-primary);
+    background:linear-gradient(160deg,var(--mint) 0%,var(--lavender) 50%,#f0e6ff 100%);
+    background-attachment:fixed;
+    line-height:2;
+    letter-spacing:0.02em;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .orb-bg{position:absolute;border-radius:50%;filter:blur(120px);opacity:.25;animation:floatOrb 32s ease-in-out infinite}
+  .orb-bg-1{width:500px;height:500px;background:radial-gradient(circle,rgba(201,247,229,0.6),transparent 70%);top:-150px;left:-120px}
+  .orb-bg-2{width:460px;height:460px;background:radial-gradient(circle,rgba(230,217,255,0.5),transparent 70%);top:25%;right:-160px;animation-delay:-11s}
+  .orb-bg-3{width:420px;height:420px;background:radial-gradient(circle,rgba(212,247,232,0.45),transparent 70%);bottom:-140px;left:12%;animation-delay:-22s}
+  .orb-mid{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:floatOrb 26s ease-in-out infinite}
+  .orb-mid-1{width:280px;height:280px;background:radial-gradient(circle,rgba(185,163,216,0.5),transparent 65%);top:45%;left:-80px;animation-delay:-5s}
+  .orb-mid-2{width:240px;height:240px;background:radial-gradient(circle,rgba(201,247,229,0.4),transparent 65%);top:15%;right:8%;animation-delay:-16s}
+  .orb-fg{position:absolute;border-radius:50%;filter:blur(60px);opacity:.4;animation:floatOrb 24s ease-in-out infinite}
+  .orb-fg-1{width:200px;height:200px;background:radial-gradient(circle,rgba(230,217,255,0.6),transparent 60%);bottom:20%;right:-60px;animation-delay:-8s}
+
+  @keyframes floatOrb{
+    0%,100%{transform:translate(0,0) scale(1)}
+    33%{transform:translate(32px,-28px) scale(1.08)}
+    66%{transform:translate(-24px,24px) scale(.94)}
+  }
+
+  .cursor-glow{
+    position:fixed;width:350px;height:350px;
+    background:radial-gradient(circle,rgba(185,163,216,0.12),transparent 70%);
+    border-radius:50%;pointer-events:none;z-index:0;
+    transform:translate(-50%,-50%);
+    transition:transform 0.15s ease-out;
+    opacity:0;
+  }
+  .cursor-glow.visible{opacity:1}
+
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:20;
+    display:flex;justify-content:center;gap:4px;
+    padding:16px 24px;
+    background:rgba(255,255,255,0.38);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,0.55);
+    transition:background .4s var(--ease-out);
+  }
+  .nav.scrolled{background:rgba(255,255,255,0.68)}
+  .nav a{
+    color:var(--text-secondary);text-decoration:none;
+    font-size:13px;letter-spacing:2px;font-weight:500;
+    padding:9px 16px;border-radius:999px;
+    transition:all .35s var(--ease-out);
+    position:relative;flex-shrink:0;white-space:nowrap;
+  }
+  .nav a::after{
+    content:"";position:absolute;bottom:5px;left:50%;transform:translateX(-50%) scaleX(0);
+    width:18px;height:2px;background:var(--purple);border-radius:2px;
+    transition:transform .35s var(--ease-out);
+  }
+  .nav a.active{color:var(--text-primary);background:rgba(106,76,147,0.12)}
+  .nav a.active::after{transform:translateX(-50%) scaleX(1)}
+  @media(hover:hover){
+    .nav a:hover{color:var(--text-primary);background:rgba(255,255,255,0.6)}
+    .nav a:hover::after{transform:translateX(-50%) scaleX(1)}
+  }
+
+  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 28px}
+  .wide{max-width:1040px}
+  section{padding:var(--space-2xl) 0;position:relative;z-index:1}
+  section[id]{scroll-margin-top:96px}
+
+  .eyebrow{
+    font-size:11px;letter-spacing:6px;color:var(--text-tertiary);
+    text-transform:uppercase;margin-bottom:20px;
+    display:flex;align-items:center;gap:16px;font-weight:500;
+  }
+  .eyebrow::after{content:"";height:1px;width:48px;background:linear-gradient(90deg,var(--text-tertiary),transparent)}
+
+  h1,h2,h3{font-family:var(--font-serif);font-weight:400;line-height:1.4}
+  h2{font-size:clamp(26px,4vw,36px);letter-spacing:1.5px;margin-bottom:28px;color:var(--purple-deep)}
+  h3{font-size:22px;letter-spacing:1px;margin-bottom:12px;color:var(--text-primary)}
+
+  p{color:var(--text-secondary);font-size:15px;line-height:2.1}
+  p strong,p b{color:var(--text-primary);font-weight:500}
+
+  .section-lead{
+    font-size:14px;color:var(--text-tertiary);margin-top:-16px;margin-bottom:28px;
+    letter-spacing:.5px;
+  }
+
+  /* ===== 首屏 ===== */
+  .hero{
+    min-height:100vh;min-height:100svh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;isolation:isolate;
+    padding:130px 28px 90px;
+  }
+  .hero::before{
+    content:"";position:absolute;top:12%;left:50%;transform:translateX(-50%);
+    width:min(620px,88vw);height:min(620px,88vw);
+    background:radial-gradient(circle,rgba(185,163,216,0.35),transparent 60%);
+    filter:blur(60px);animation:breathe 9s ease-in-out infinite;z-index:-1;
+  }
+  @keyframes breathe{
+    0%,100%{opacity:.45;transform:translateX(-50%) scale(1)}
+    50%{opacity:.75;transform:translateX(-50%) scale(1.1)}
+  }
+
+  .hero-avatar{
+    width:124px;height:124px;border-radius:50%;
+    overflow:hidden;margin-bottom:26px;position:relative;
+    border:3px solid rgba(255,255,255,0.88);
+    box-shadow:0 14px 40px rgba(106,76,147,0.20);
+    background:linear-gradient(135deg,var(--mint),var(--lavender));
+    animation:fadeUp 1s var(--ease-out) both;
+  }
+  .hero-avatar::after{
+    content:"";position:absolute;inset:-14px;border-radius:50%;
+    background:radial-gradient(circle,rgba(185,163,216,0.35),transparent 70%);
+    z-index:-1;animation:breathe 6s ease-in-out infinite;
+  }
+  .hero-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .symbol{font-size:18px;color:var(--text-tertiary);letter-spacing:14px;margin-bottom:24px;opacity:.85}
+  .hero h1{
+    font-size:clamp(40px,7.5vw,68px);letter-spacing:9px;margin-bottom:16px;
+    background:linear-gradient(180deg,var(--purple),var(--purple-deep));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    font-weight:300;
+  }
+  .hero .sub{
+    font-family:var(--font-serif);font-size:13px;letter-spacing:6px;
+    color:var(--text-secondary);text-transform:uppercase;margin-bottom:24px;
+  }
+  .hero .tagline{
+    max-width:440px;color:var(--text-secondary);font-size:15.5px;line-height:2.1;
+    margin-bottom:36px;font-weight:300;
+  }
+
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+
+  .scroll-hint{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+    font-size:10px;letter-spacing:5px;color:var(--text-tertiary);
+    animation:float 3.5s ease-in-out infinite;opacity:.7;
+  }
+  @keyframes float{
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%{transform:translateX(-50%) translateY(9px)}
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* ===== 通用卡片 ===== */
+  .card{
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-lg);
+    padding:40px 36px;
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:var(--shadow-soft);
+    transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out);
+    position:relative;overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);
+    z-index:2;
+  }
+  @media(hover:hover){
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+  }
+
+  .about-text p+p{margin-top:20px}
+  .about-quote{
+    border-left:4px solid var(--text-tertiary);
+    padding-left:28px;margin-top:36px;
+    font-family:var(--font-serif);font-style:italic;
+    color:var(--text-primary);font-size:18px;line-height:2.4;
+    position:relative;
+  }
+  .about-quote::before{
+    content:"\201C";
+    position:absolute;top:-8px;left:12px;
+    font-size:48px;color:var(--purple-faint);
+    font-family:Georgia,serif;line-height:1;
+  }
+
+  /* ===== 服务 ===== */
+  .services{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+  .service{
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-lg);
+    padding:40px 32px;
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:var(--shadow-soft);
+    transition:box-shadow .5s var(--ease-out),background .5s var(--ease-out);
+    position:relative;overflow:hidden;
+  }
+  .service::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);
+    z-index:2;
+  }
+  @media(hover:hover){
+    .service:hover{
+      box-shadow:var(--shadow-hover);
+      background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.85),rgba(255,255,255,0.62) 70%);
+    }
+  }
+
+  .service .num{font-family:var(--font-serif);font-size:13px;letter-spacing:4px;color:var(--text-tertiary);margin-bottom:20px}
+  .service h3{font-size:22px;margin-bottom:10px;letter-spacing:1.5px;color:var(--text-primary)}
+  .service .en{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--text-secondary);margin-bottom:18px;letter-spacing:1px}
+  .service p{font-size:14.5px;line-height:2.05}
+
+  .service-toggle{
+    margin-top:22px;background:none;border:none;padding:0 0 3px;
+    color:var(--text-primary);font-size:13px;letter-spacing:2px;font-weight:500;
+    font-family:inherit;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+    border-bottom:1px solid var(--text-tertiary);
+    transition:color .3s,border-color .3s;
+  }
+  .service-toggle::after{content:"→";font-size:15px;line-height:1;transition:transform .3s var(--ease-out)}
+  @media(hover:hover){
+    .service-toggle:hover{color:var(--purple-deep);border-color:var(--purple)}
+    .service-toggle:hover::after{transform:translateX(3px)}
+  }
+
+  /* ===== 按钮 ===== */
+  .btn{
+    display:inline-block;padding:15px 40px;border-radius:999px;
+    background:linear-gradient(135deg,var(--purple),var(--purple-deep));
+    color:#fff;text-decoration:none;
+    font-size:13px;letter-spacing:3px;font-weight:500;
+    border:none;cursor:pointer;font-family:inherit;
+    box-shadow:0 12px 28px rgba(106,76,147,0.24);
+    transition:all .4s var(--ease-out);
+    position:relative;overflow:hidden;
+  }
+  .btn-ghost{
+    background:rgba(255,255,255,0.55);
+    color:var(--text-primary);
+    border:1px solid rgba(106,76,147,0.22);
+    box-shadow:0 8px 20px rgba(106,76,147,0.10);
+  }
+  @media(hover:hover){
+    .btn:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(106,76,147,0.30)}
+    .btn-ghost:hover{background:rgba(255,255,255,0.8);box-shadow:0 12px 26px rgba(106,76,147,0.16)}
+  }
+
+  /* ===== 预约 ===== */
+  .booking{
+    text-align:center;
+    background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.88),rgba(255,255,255,0.52) 75%);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-xl);
+    padding:56px 36px;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    box-shadow:var(--shadow-soft);
+    position:relative;overflow:hidden;
+  }
+  .booking::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent);
+  }
+  .booking .eyebrow{justify-content:center}
+  .booking .eyebrow::after{display:none}
+  .booking p{max-width:520px;margin:0 auto 32px;font-size:15px}
+  .booking-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+
+  .booking-note{
+    font-size:11.5px;
+    line-height:1.9;
+    color:var(--text-tertiary);
+    letter-spacing:.3px;
+    margin:28px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(106,76,147,0.08);
+    max-width:440px;
+  }
+
+  /* ===== 复制微信按钮：hover 展开渐变，点击保持 ===== */
+  #copyWechat{
+    position:relative;
+    overflow:hidden;
+    background:rgba(255,255,255,0.55);
+    color:var(--text-primary);
+    border:1px solid rgba(106,76,147,0.22);
+    box-shadow:0 8px 20px rgba(106,76,147,0.10);
+    transition:color .3s var(--ease-out),border-color .3s var(--ease-out),box-shadow .3s var(--ease-out);
+  }
+
+  #copyWechat .copy-fill{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,#c9f7e5 0%,#e6d9ff 55%,#d4c4f0 100%);
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path .7s var(--ease-out);
+    z-index:0;
+    pointer-events:none;
+  }
+
+  #copyWechat .copy-text{
+    position:relative;
+    z-index:1;
+  }
+
+  @media(hover:hover){
+    #copyWechat:hover .copy-fill{
+      clip-path:inset(0 0 0 0);
+    }
+    #copyWechat:not(.copied):hover{
+      background:rgba(255,255,255,0.8);
+      border-color:rgba(106,76,147,0.4);
+      box-shadow:0 12px 26px rgba(106,76,147,0.16);
+    }
+  }
+
+  #copyWechat.copied{
+    color:var(--purple-deep);
+    border-color:rgba(185,163,216,0.65);
+    box-shadow:0 10px 24px rgba(185,163,216,0.28);
+  }
+
+  #copyWechat.copied .copy-fill{
+    clip-path:inset(0 0 0 0);
+  }
+
+  /* ===== 影像 ===== */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .tile{
+    aspect-ratio:1/1;overflow:hidden;position:relative;
+    border-radius:var(--radius-md);
+    background:linear-gradient(135deg,var(--mint),var(--lavender));
+    border:1px solid rgba(255,255,255,0.7);
+    box-shadow:0 6px 18px rgba(106,76,147,0.06);
+    transition:all .5s var(--ease-out);
+  }
+  .tile img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .8s var(--ease-out),filter .8s var(--ease-out);
+    filter:saturate(.88) brightness(1.02);
+  }
+  .tile::after{
+    content:attr(data-title);
+    position:absolute;bottom:0;left:0;right:0;
+    padding:18px 14px;
+    background:linear-gradient(transparent,rgba(106,76,147,0.65));
+    color:white;font-size:12.5px;letter-spacing:1px;
+    opacity:0;transform:translateY(12px);
+    transition:all .4s var(--ease-out);font-weight:500;
+  }
+  @media(hover:hover){
+    .tile:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(106,76,147,0.16)}
+    .tile:hover img{transform:scale(1.08);filter:saturate(1) brightness(1.05)}
+    .tile:hover::after{opacity:1;transform:translateY(0)}
+  }
+  @media(hover:none){
+    .tile::after{opacity:1;transform:translateY(0);background:linear-gradient(transparent,rgba(106,76,147,0.72))}
+  }
+
+  /* ===== 客户评价 ===== */
+  .testimonials-head{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px;
+  }
+  .testimonials-head h2{margin-bottom:0}
+  .t-nav{display:flex;gap:8px;flex-shrink:0}
+  .t-arrow{
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid rgba(106,76,147,0.18);
+    background:rgba(255,255,255,0.6);
+    color:var(--text-primary);font-size:18px;line-height:1;
+    cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .3s var(--ease-out);
+  }
+  @media(hover:hover){
+    .t-arrow:hover{background:var(--purple);color:#fff;border-color:var(--purple)}
+  }
+
+  .testimonials{
+    display:flex;gap:16px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:6px 4px 20px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .testimonials::-webkit-scrollbar{display:none}
+
+  .testimonial{
+    flex:0 0 320px;scroll-snap-align:start;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-lg);
+    padding:28px 26px;
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:var(--shadow-soft);
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .t-text{
+    font-size:14.5px;line-height:1.95;color:var(--text-secondary);
+    letter-spacing:0.01em;
+  }
+  .t-author{
+    font-size:12.5px;letter-spacing:1.5px;color:var(--text-tertiary);
+    text-align:right;margin-top:auto;
+  }
+  .t-hint{
+    font-size:11.5px;letter-spacing:2px;color:var(--text-tertiary);
+    text-align:center;margin-top:6px;
+  }
+
+  /* ===== FAQ ===== */
+  .faq-list{display:flex;flex-direction:column;gap:12px}
+  .faq-item{
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-md);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:var(--shadow-soft);
+    overflow:hidden;
+  }
+  .faq-item summary{
+    list-style:none;cursor:pointer;
+    padding:20px 24px;
+    font-size:15px;font-weight:500;color:var(--text-primary);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    transition:background .3s var(--ease-out);
+  }
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{
+    content:"+";font-size:20px;line-height:1;
+    color:var(--text-tertiary);flex-shrink:0;
+    transition:transform .3s var(--ease-out);
+  }
+  .faq-item[open] summary::after{content:"−"}
+  .faq-item p{
+    padding:0 24px 22px;
+    font-size:14.5px;line-height:1.95;color:var(--text-secondary);
+  }
+  @media(hover:hover){
+    .faq-item summary:hover{background:rgba(255,255,255,0.5)}
+  }
+
+  /* ===== 关注我：两列网格 ===== */
+  .social-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  .social-card{
+    display:flex;align-items:center;gap:12px;
+    padding:16px 18px;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-md);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:var(--shadow-soft);
+    text-decoration:none;color:var(--text-primary);
+    transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out),background .4s var(--ease-out);
+  }
+  .social-card .icon{
+    width:20px;height:20px;flex-shrink:0;
+    fill:currentColor;stroke:none;opacity:.7;
+    transition:opacity .3s;
+  }
+  .social-card .icon-outline{fill:none;stroke:currentColor;stroke-width:1.5}
+  .social-card .info{display:flex;flex-direction:column;gap:1px;min-width:0}
+  .social-card .platform{font-size:13px;font-weight:500;letter-spacing:.5px;line-height:1.4}
+  .social-card .handle{
+    font-size:12px;color:var(--text-secondary);line-height:1.4;font-weight:300;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  @media(hover:hover){
+    .social-card:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-hover);
+      background:rgba(255,255,255,0.78);
+    }
+    .social-card:hover .icon{opacity:1}
+  }
+
+  /* ===== 联系我：三张大卡片 ===== */
+  .contact-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  .contact-card{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:12px;
+    padding:34px 20px;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius-lg);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:var(--shadow-soft);
+    text-decoration:none;color:var(--text-primary);
+    text-align:center;
+    font-family:inherit;
+    cursor:pointer;
+    transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out),background .4s var(--ease-out);
+  }
+  .contact-card .c-icon{
+    width:30px;height:30px;
+    fill:currentColor;stroke:none;opacity:.7;
+    transition:opacity .3s;
+  }
+  .contact-card .c-body{display:flex;flex-direction:column;gap:4px}
+  .contact-card .c-label{font-size:13px;font-weight:500;letter-spacing:2px}
+  .contact-card .c-value{font-size:12px;color:var(--text-secondary);line-height:1.6;word-break:break-all}
+  .contact-card .c-value.copied{color:var(--purple-deep);font-weight:500}
+  @media(hover:hover){
+    .contact-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-hover);
+      background:rgba(255,255,255,0.8);
+    }
+    .contact-card:hover .c-icon{opacity:1}
+  }
+
+  /* ===== 页脚 ===== */
+  footer{
+    text-align:center;padding:64px 28px 48px;
+    border-top:1px solid rgba(106,76,147,0.1);margin-top:40px;
+    position:relative;z-index:1;
+  }
+  footer p{font-size:12px;letter-spacing:1.5px;color:var(--text-secondary)}
+  footer .disclaimer{
+    max-width:560px;margin:18px auto 0;
+    font-size:11.5px;line-height:2;color:var(--text-tertiary);
+  }
+
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity 1s var(--ease-out),transform 1s var(--ease-out)}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* ===== 服务模态框 ===== */
+  .modal{
+    position:fixed;inset:0;z-index:100;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    opacity:0;visibility:hidden;
+    transition:opacity .4s var(--ease-out),visibility .4s var(--ease-out);
+  }
+  .modal.open{opacity:1;visibility:visible}
+
+  .modal-backdrop{
+    position:absolute;inset:0;
+    background:rgba(74,53,112,0.42);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  }
+
+  .modal-card{
+    position:relative;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(28px) saturate(1.1);
+    -webkit-backdrop-filter:blur(28px) saturate(1.1);
+    border:1px solid rgba(255,255,255,0.85);
+    border-radius:var(--radius-xl);
+    padding:48px 42px 40px;
+    max-width:520px;width:100%;
+    max-height:88vh;overflow-y:auto;
+    box-shadow:0 30px 90px rgba(74,53,112,0.28);
+    transform:translateY(24px) scale(.97);
+    transition:transform .45s var(--ease-out);
+  }
+  .modal.open .modal-card{transform:translateY(0) scale(1)}
+
+  .modal-card::-webkit-scrollbar{width:6px}
+  .modal-card::-webkit-scrollbar-thumb{background:rgba(185,163,216,.4);border-radius:3px}
+
+  .modal-close{
+    position:absolute;top:16px;right:18px;
+    width:36px;height:36px;border-radius:50%;
+    border:1px solid rgba(106,76,147,0.16);
+    background:rgba(255,255,255,0.6);
+    color:var(--text-secondary);
+    font-size:20px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:all .3s var(--ease-out);
+  }
+  @media(hover:hover){
+    .modal-close:hover{background:var(--purple);color:#fff;border-color:var(--purple)}
+  }
+
+  .m-num{font-family:var(--font-serif);font-size:12px;letter-spacing:4px;color:var(--text-tertiary);margin-bottom:14px}
+  .m-title{font-family:var(--font-serif);font-size:28px;font-weight:400;letter-spacing:2px;color:var(--purple-deep);margin-bottom:6px}
+  .m-en{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--text-secondary);margin-bottom:22px;letter-spacing:1px}
+  .m-desc{font-size:14.5px;line-height:2.05;color:var(--text-secondary);margin-bottom:26px}
+
+  .m-list{
+    display:grid;grid-template-columns:auto 1fr;gap:12px 20px;
+    margin:0 0 30px;font-size:13.5px;line-height:1.75;
+    padding:22px 0;border-top:1px solid rgba(106,76,147,0.08);border-bottom:1px solid rgba(106,76,147,0.08);
+  }
+  .m-list dt{color:var(--text-tertiary);letter-spacing:1px;white-space:nowrap}
+  .m-list dd{color:var(--text-secondary)}
+
+  .modal-card .btn{width:100%;text-align:center}
+
+  /* ===== 响应式 ===== */
+  @media(max-width:900px){
+    .nav{
+      justify-content:flex-start;
+      overflow-x:auto;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .nav::-webkit-scrollbar{display:none}
+  }
+
+  @media(max-width:768px){
+    :root{--space-2xl:96px;--space-xl:72px}
+    .services{grid-template-columns:1fr}
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .contact-cards{grid-template-columns:1fr}
+    .contact-card{
+      flex-direction:row;justify-content:flex-start;
+      text-align:left;padding:18px 20px;gap:14px;
+    }
+    .contact-card .c-body{align-items:flex-start;gap:2px}
+    section{padding:var(--space-xl) 0}
+    .nav{gap:2px;padding:12px 14px}
+    .nav a{padding:8px 12px;font-size:12px;letter-spacing:1.5px}
+    .card,.service{padding:32px 26px}
+    .booking{padding:44px 26px;border-radius:var(--radius-lg)}
+    .hero{padding:118px 24px 80px}
+    .hero h1{letter-spacing:6px}
+    .cursor-glow{display:none}
+    .orb-bg-2,.orb-mid-1,.orb-fg-1{display:none}
+    .orb-bg-1,.orb-bg-3,.orb-mid-2{filter:blur(70px);opacity:.2}
+
+    .testimonial{flex:0 0 78vw;padding:24px 22px}
+    .t-text{font-size:14px;line-height:1.9}
+    .t-nav{display:none}
+
+    .modal-card{padding:40px 28px 32px;max-height:90vh}
+    .m-title{font-size:24px}
+  }
+
+  @media(max-width:640px){
+    .social-grid{grid-template-columns:1fr}
+  }
+
+  @media(max-width:480px){
+    .wrap{padding:0 20px}
+    .card,.service{padding:28px 22px}
+    .hero-avatar{width:104px;height:104px;margin-bottom:22px}
+    .hero .sub{letter-spacing:4px;font-size:12px}
+    .hero-actions{gap:10px}
+    .hero-actions .btn{padding:13px 28px;font-size:12px;letter-spacing:2px}
+    .booking-actions{flex-direction:column;align-items:stretch}
+    .booking-actions .btn{text-align:center;justify-content:center}
+    .booking-note{font-size:11px;margin-top:24px;padding-top:16px}
+    .faq-item summary{padding:18px 20px;font-size:14.5px}
+    .faq-item p{padding:0 20px 20px}
+    .testimonial{flex:0 0 84vw}
+
+    .modal{padding:16px}
+    .modal-card{padding:36px 22px 28px;border-radius:var(--radius-lg)}
+    .m-list{grid-template-columns:1fr;gap:4px 0}
+    .m-list dt{margin-top:10px}
+    .m-list dt:first-child{margin-top:0}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+    .reveal{opacity:1;transform:none}
+    .cursor-glow{display:none}
+    #copyWechat .copy-fill{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="orbs" aria-hidden="true">
+  <span class="orb-bg orb-bg-1"></span>
+  <span class="orb-bg orb-bg-2"></span>
+  <span class="orb-bg orb-bg-3"></span>
+  <span class="orb-mid orb-mid-1"></span>
+  <span class="orb-mid orb-mid-2"></span>
+  <span class="orb-fg orb-fg-1"></span>
+</div>
+
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <a href="#about">关于</a>
+  <a href="#services">服务</a>
+  <a href="#booking">预约</a>
+  <a href="#gallery">影像</a>
+  <a href="#testimonials">评价</a>
+  <a href="#faq">FAQ</a>
+  <a href="#follow">关注</a>
+  <a href="#contact">联系</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-avatar">
+    <img src="avatar.jpg" alt="小蝴蝶" onerror="this.style.display='none'">
+  </div>
+  <div class="symbol">☾ ✦ ☽</div>
+  <h1>光源宇宙</h1>
+  <div class="sub">ThetaHealing · Tarot</div>
+  <p class="tagline">在光与影之间，陪你看见内在的答案。<br>西塔疗愈 · 塔罗咨询 · 由小蝴蝶主理</p>
+  <div class="hero-actions">
+    <a class="btn" href="#booking">立即预约</a>
+    <a class="btn btn-ghost" href="#services">了解服务</a>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2>关于我</h2>
+    <div class="card reveal">
+      <div class="about-text">
+        <p>我是小蝴蝶，一名西塔疗愈师与塔罗咨询者。光源宇宙是我与来访者相遇的地方。</p>
+        <p>我相信，每个人内在都有<strong>一束光</strong>。疗愈不是替你解决问题，而是陪你回到那束光里，看清自己真正的需要。</p>
+        <p>我的工作方式温和、克制、尊重边界。不评判、不预言、不替代医疗。所有对话与信息，都在保密中进行。</p>
+      </div>
+      <blockquote class="about-quote">你不需要变得更好，<br>你只需要回到自己。</blockquote>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">Services</div>
+    <h2>服务</h2>
+    <div class="services">
+
+      <div class="service reveal">
+        <div class="num">01</div>
+        <h3>西塔疗愈</h3>
+        <div class="en">ThetaHealing</div>
+        <p>通过引导进入西塔脑波状态，识别并转化限制性信念，回到身心平衡。适合情绪困扰、关系卡点、自我价值感低落，以及想更深了解自己的人。</p>
+        <button class="service-toggle" data-service="theta" aria-haspopup="dialog">查看详情</button>
+      </div>
+
+      <div class="service reveal">
+        <div class="num">02</div>
+        <h3>塔罗咨询</h3>
+        <div class="en">Tarot Reading</div>
+        <p>以塔罗为镜，照见当下处境与内在动力。不预言命运，而是帮你梳理选择、看清模式。适合面临抉择、关系困惑、或需要一面镜子的时刻。</p>
+        <button class="service-toggle" data-service="tarot" aria-haspopup="dialog">查看详情</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="wrap">
+    <div class="booking reveal">
+      <div class="eyebrow">Booking</div>
+      <h2 style="margin-bottom:18px">预约咨询</h2>
+      <p>如果你准备好了，欢迎通过邮箱或微信与我联系。请简单说明你想探索的方向，我会在 24 小时内回复，并和你确认合适的时间与方式。</p>
+      <div class="booking-actions">
+        <a class="btn" href="mailto:your@email.com">写信预约</a>
+        <button class="btn btn-ghost" id="copyWechat" data-copy="your_wechat_id">
+          <span class="copy-fill" aria-hidden="true"></span>
+          <span class="copy-text">复制微信号</span>
+        </button>
+      </div>
+      <p class="booking-note">线上进行 · 可用简体 / 繁体中文沟通 · 海外时区请注明所在城市</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap wide">
+    <div class="eyebrow">Gallery</div>
+    <h2>影像</h2>
+    <div class="gallery reveal">
+      <div class="tile" data-title="静谧晨光"><img src="images/photo-01.jpg" alt="静谧晨光" loading="lazy"></div>
+      <div class="tile" data-title="心灵花园"><img src="images/photo-02.jpg" alt="心灵花园" loading="lazy"></div>
+      <div class="tile" data-title="内在之光"><img src="images/photo-03.jpg" alt="内在之光" loading="lazy"></div>
+      <div class="tile" data-title="温柔陪伴"><img src="images/photo-04.jpg" alt="温柔陪伴" loading="lazy"></div>
+      <div class="tile" data-title="自然呼吸"><img src="images/photo-05.jpg" alt="自然呼吸" loading="lazy"></div>
+      <div class="tile" data-title="冥想时刻"><img src="images/photo-06.jpg" alt="冥想时刻" loading="lazy"></div>
+      <div class="tile" data-title="能量流动"><img src="images/photo-07.jpg" alt="能量流动" loading="lazy"></div>
+      <div class="tile" data-title="觉醒之路"><img src="images/photo-08.jpg" alt="觉醒之路" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap wide">
+    <div class="testimonials-head reveal">
+      <div>
+        <div class="eyebrow">Voices</div>
+        <h2>来访者的话</h2>
+      </div>
+      <div class="t-nav">
+        <button class="t-arrow" data-dir="-1" aria-label="上一组评价">‹</button>
+        <button class="t-arrow" data-dir="1" aria-label="下一组评价">›</button>
+      </div>
+    </div>
+
+    <div class="testimonials reveal" id="testimonialsTrack">
+      <article class="testimonial">
+        <p class="t-text">第一次做塔罗时其实很紧张，怕听到不好的结果。但小蝴蝶没有给我“预言”，而是陪我把问题一层层拆开。结束后我自己写下了三个可以行动的小步骤，那种踏实感比任何答案都重要。</p>
+        <div class="t-author">— M · 马来西亚</div>
+      </article>
+      <article class="testimonial">
+        <p class="t-text">西塔疗愈过程中我一直在哭，不是难过，是那种终于被允许放松的感觉。她没有追问我的隐私，也没有评判，只是很稳地陪着我。之后那一周我的睡眠明显变好了。</p>
+        <div class="t-author">— Y · 台北</div>
+      </article>
+      <article class="testimonial">
+        <p class="t-text">在吉隆坡，跨时区约的时间她帮我算得很清楚。整个咨询用华语进行，没有隔阂。我最喜欢的是她最后说的那句：“你不需要马上变好。”</p>
+        <div class="t-author">— L · 吉隆坡</div>
+      </article>
+      <article class="testimonial">
+        <p class="t-text">本来只是想试试看，结果聊完发现很多卡点是自己给自己设的。她不急不慢，节奏很舒服。作为留学生，能在深夜找到这样一个安全的出口，很珍贵。</p>
+        <div class="t-author">— C · 悉尼</div>
+      </article>
+      <article class="testimonial">
+        <p class="t-text">塔罗给我的不是“会不会”，而是“你现在在哪”。这一点让我很安心。咨询后我重新整理了和家人的关系，虽然还没完全解决，但至少不再内耗。</p>
+        <div class="t-author">— S · 香港</div>
+      </article>
+      <article class="testimonial">
+        <p class="t-text">预约流程很清楚，回复也快。咨询时她的声音很稳，空间很安静。结束后有几天我情绪起伏比较大，她提前提醒过这是正常的，让我没有那么慌。</p>
+        <div class="t-author">— W · 多伦多</div>
+      </article>
+    </div>
+    <p class="t-hint">左右滑动查看更多</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>常见问题</h2>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>线上疗愈有效吗？</summary>
+        <p>有效。西塔疗愈与塔罗咨询都发生在意识与能量层面，不依赖物理接触。只要你在安静、不被打扰的空间里，线上和面对面在效果上没有本质差别。</p>
+      </details>
+      <details class="faq-item">
+        <summary>咨询前需要准备什么？</summary>
+        <p>一个安静、不被打扰的空间，稳定的网络，以及一个你真正想探索的问题。可以提前写下想聊的方向，但不需要准备得很完整，过程里我们会一起梳理。</p>
+      </details>
+      <details class="faq-item">
+        <summary>对话内容会保密吗？</summary>
+        <p>会。所有对话与信息都在保密中进行，不会对外分享，也不会用于宣传，除非你明确同意。这是咨询关系的基本边界。</p>
+      </details>
+      <details class="faq-item">
+        <summary>塔罗会告诉我“注定”的结果吗？</summary>
+        <p>不会。塔罗不是预言，而是一面镜子，帮你看清当下的处境、模式与选择。决定权始终在你手里，我不会替你下判断。</p>
+      </details>
+      <details class="faq-item">
+        <summary>我在海外，时区不一样怎么办？</summary>
+        <p>预约时告诉我你所在的城市，我会换算成你当地的时间和你确认。可预约时间通常以 UTC+8 为基准，海外时段可以单独沟通。</p>
+      </details>
+      <details class="faq-item">
+        <summary>可以改期或退款吗？</summary>
+        <p>提前 24 小时以上可以免费改期一次。24 小时内改期或取消，视情况收取部分费用。具体规则会在确认预约时一并说明。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 关注我：日常更新 ===== -->
+<section id="follow">
+  <div class="wrap wide">
+    <div class="eyebrow">Follow</div>
+    <h2>关注我</h2>
+    <p class="section-lead">日常更新与创作，欢迎来玩。</p>
+
+    <div class="social-grid reveal">
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon icon-outline" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+        <div class="info"><span class="platform">Instagram</span><span class="handle">@your_id</span></div>
+      </a>
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"/></svg>
+        <div class="info"><span class="platform">YouTube</span><span class="handle">@your_id</span></div>
+      </a>
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <div class="info"><span class="platform">小红书</span><span class="handle">@your_id</span></div>
+      </a>
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        <div class="info"><span class="platform">微博</span><span class="handle">@your_id</span></div>
+      </a>
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        <div class="info"><span class="platform">TikTok</span><span class="handle">@your_id</span></div>
+      </a>
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <div class="info"><span class="platform">Facebook</span><span class="handle">@your_id</span></div>
+      </a>
+      <a class="social-card" href="#" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        <div class="info"><span class="platform">抖音</span><span class="handle">@your_id</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 联系我：预约 / 合作 ===== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Contact</div>
+    <h2>联系我</h2>
+    <p class="section-lead">预约咨询、合作或其他事宜，请直接联系。</p>
+
+    <div class="contact-cards reveal">
+      <a class="contact-card" href="mailto:your@email.com">
+        <svg class="c-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <div class="c-body">
+          <span class="c-label">邮箱</span>
+          <span class="c-value">your@email.com</span>
+        </div>
+      </a>
+
+      <button class="contact-card" type="button" data-copy="your_wechat_id">
+        <svg class="c-icon" viewBox="0 0 24 24"><path d="M8.5 4C4.9 4 2 6.5 2 9.6c0 1.8 1 3.4 2.6 4.4l-.6 2.2 2.4-1.3c.6.2 1.3.3 2.1.3h.4c-.1-.5-.2-1-.2-1.6 0-3.2 3-5.8 6.7-5.8.3 0 .5 0 .8.1C15.6 5.6 12.4 4 8.5 4z"/><path d="M22 13.4c0-2.6-2.6-4.7-5.8-4.7s-5.8 2.1-5.8 4.7 2.6 4.7 5.8 4.7c.6 0 1.2-.1 1.7-.2l2 1.1-.5-1.8c1.5-.8 2.6-2.2 2.6-3.8z"/></svg>
+        <div class="c-body">
+          <span class="c-label">微信</span>
+          <span class="c-value" data-original="your_wechat_id">your_wechat_id</span>
+        </div>
+      </button>
+
+      <a class="contact-card" href="https://wa.me/60000000000" target="_blank" rel="noopener">
+        <svg class="c-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        <div class="c-body">
+          <span class="c-label">WhatsApp</span>
+          <span class="c-value">+60 00 000 0000</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 光源宇宙 · 小蝴蝶</p>
+  <p class="disclaimer">本页所提供的疗愈与塔罗咨询，属于身心探索与个人成长支持，不构成医疗、心理治疗或法律建议，亦不替代专业医疗诊断。请根据自身情况理性选择。</p>
+</footer>
+
+<div class="modal" id="serviceModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="document">
+    <button class="modal-close" data-close aria-label="关闭详情">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var nav = document.querySelector('.nav');
+    var sections = document.querySelectorAll('section[id]');
+    var links = document.querySelectorAll('.nav a');
+    var cursorGlow = document.querySelector('.cursor-glow');
+    var orbs = document.querySelectorAll('.orb-bg, .orb-mid, .orb-fg');
+    var isFinePointer = window.matchMedia('(pointer:fine)').matches;
+
+    // 滚动淡入
+    var els = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+      els.forEach(function(el){io.observe(el)});
+    } else {
+      els.forEach(function(el){el.classList.add('in')});
+    }
+
+    // 光标跟随
+    if(cursorGlow && isFinePointer){
+      document.addEventListener('mousemove', function(e){
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+        if(!cursorGlow.classList.contains('visible')){
+          cursorGlow.classList.add('visible');
+        }
+      });
+      document.addEventListener('mouseleave', function(){
+        cursorGlow.classList.remove('visible');
+      });
+    }
+
+    // 滚动：导航高亮 + 视差
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 60){ nav.classList.add('scrolled'); }
+      else { nav.classList.remove('scrolled'); }
+
+      var pos = window.scrollY + 140;
+      var current = '';
+      sections.forEach(function(s){
+        if(s.offsetTop <= pos) current = s.id;
+      });
+      links.forEach(function(a){
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+
+      if(isFinePointer && !ticking){
+        window.requestAnimationFrame(function(){
+          var y = window.scrollY;
+          if(orbs[0]) orbs[0].style.translate = '0 ' + (y * 0.08) + 'px';
+          if(orbs[1]) orbs[1].style.translate = '0 ' + (y * -0.05) + 'px';
+          if(orbs[2]) orbs[2].style.translate = '0 ' + (y * 0.06) + 'px';
+          if(orbs[3]) orbs[3].style.translate = '0 ' + (y * 0.04) + 'px';
+          if(orbs[4]) orbs[4].style.translate = '0 ' + (y * -0.03) + 'px';
+          if(orbs[5]) orbs[5].style.translate = '0 ' + (y * 0.07) + 'px';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, {passive:true});
+
+    // 通用复制函数
+    function copyText(text, onSuccess, onFail){
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly','');
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch(e){}
+        document.body.removeChild(ta);
+        if(ok){ onSuccess && onSuccess(); }
+        else { onFail && onFail(); }
+      }
+
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(function(){
+          onSuccess && onSuccess();
+        }).catch(fallback);
+      } else {
+        fallback();
+      }
+    }
+
+    // 预约区：微信复制按钮
+    var copyBtn = document.getElementById('copyWechat');
+    if(copyBtn){
+      var copyLabel = copyBtn.querySelector('.copy-text');
+      var originalText = copyLabel.textContent;
+      var copyTimer = null;
+
+      function showCopied(){
+        copyBtn.classList.add('copied');
+        copyLabel.textContent = '微信号已复制';
+        if(copyTimer) clearTimeout(copyTimer);
+        copyTimer = setTimeout(function(){
+          copyBtn.classList.remove('copied');
+          copyLabel.textContent = originalText;
+        }, 2200);
+      }
+
+      copyBtn.addEventListener('click', function(){
+        var text = copyBtn.getAttribute('data-copy') || '';
+        copyText(text, showCopied, showCopied);
+      });
+    }
+
+    // 联系区：微信卡片点击复制
+    document.querySelectorAll('.contact-card[data-copy]').forEach(function(card){
+      card.addEventListener('click', function(){
+        var text = card.getAttribute('data-copy') || '';
+        var valEl = card.querySelector('.c-value');
+        if(!valEl) return;
+        var original = valEl.getAttribute('data-original') || valEl.textContent;
+        var timer = null;
+
+        function showCopied(){
+          valEl.textContent = '微信号已复制 ✓';
+          valEl.classList.add('copied');
+          if(timer) clearTimeout(timer);
+          timer = setTimeout(function(){
+            valEl.textContent = original;
+            valEl.classList.remove('copied');
+          }, 2200);
+        }
+
+        copyText(text, showCopied, showCopied);
+      });
+    });
+
+    // 服务详情模态框
+    var servicesData = {
+      theta: {
+        num: '01',
+        title: '西塔疗愈',
+        en: 'ThetaHealing',
+        desc: '通过引导进入西塔脑波状态，识别并转化限制性信念，回到身心平衡。适合情绪困扰、关系卡点、自我价值感低落，以及想更深了解自己的人。',
+        duration: '60 分钟',
+        format: '线上（Zoom / Google Meet / 腾讯会议）',
+        price: '¥xxx / 次',
+        suitable: '情绪困扰、关系卡点、自我价值感低落',
+        includes: '一次完整疗愈 + 事后 7 天内一次简短文字答疑'
+      },
+      tarot: {
+        num: '02',
+        title: '塔罗咨询',
+        en: 'Tarot Reading',
+        desc: '以塔罗为镜，照见当下处境与内在动力。不预言命运，而是帮你梳理选择、看清模式。适合面临抉择、关系困惑、或需要一面镜子的时刻。',
+        duration: '45 分钟',
+        format: '线上（Zoom / Google Meet / 腾讯会议）',
+        price: '¥xxx / 次',
+        suitable: '面临抉择、关系困惑、需要一面镜子',
+        includes: '一次咨询 + 牌面记录 PDF'
+      }
+    };
+
+    var modal = document.getElementById('serviceModal');
+    var modalContent = document.getElementById('modalContent');
+    var lastTrigger = null;
+
+    function openServiceModal(key, trigger){
+      var data = servicesData[key];
+      if(!data) return;
+      lastTrigger = trigger || null;
+
+      modalContent.innerHTML =
+        '<div class="m-num">' + data.num + '</div>' +
+        '<h3 class="m-title" id="modalTitle">' + data.title + '</h3>' +
+        '<div class="m-en">' + data.en + '</div>' +
+        '<p class="m-desc">' + data.desc + '</p>' +
+        '<dl class="m-list">' +
+          '<dt>时长</dt><dd>' + data.duration + '</dd>' +
+          '<dt>形式</dt><dd>' + data.format + '</dd>' +
+          '<dt>费用</dt><dd>' + data.price + '</dd>' +
+          '<dt>适合</dt><dd>' + data.suitable + '</dd>' +
+          '<dt>包含</dt><dd>' + data.includes + '</dd>' +
+        '</dl>' +
+        '<a class="btn" href="#booking" data-close>预约这项</a>';
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeServiceModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      if(lastTrigger) lastTrigger.focus();
+    }
+
+    document.querySelectorAll('.service-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        openServiceModal(btn.getAttribute('data-service'), btn);
+      });
+    });
+
+    modal.addEventListener('click', function(e){
+      if(e.target.closest('[data-close]')) closeServiceModal();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && modal.classList.contains('open')){
+        closeServiceModal();
+      }
+    });
+
+    // 评价横向滑动
+    var track = document.getElementById('testimonialsTrack');
+    document.querySelectorAll('.t-arrow').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(!track) return;
+        var dir = parseInt(btn.getAttribute('data-dir'), 10) || 1;
+        var amount = track.clientWidth * 0.8;
+        track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
