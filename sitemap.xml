@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://USERNAME.github.io/REPO/index.html</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/courses.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/course-detail.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/therapies.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/events.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/contact.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://USERNAME.github.io/REPO/disclaimer.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
